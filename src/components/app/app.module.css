@@ -1,4 +1,4 @@
-.app {
+.container {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -6,23 +6,28 @@
   color: #f2f2f3;
 }
 
+.centeredPage {
+  display: flex;
+  justify-content: center;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #2f2f37;
+  background-color: #2f2f37;
 }
 
 ::-webkit-scrollbar-thumb {
   border: 3px solid #8585ad;
-  background: #8585ad;
+  background-color: #8585ad;
 }
 
-.detailPageWrap {
+.modalOffsetWrap {
   margin: 120px auto;
 }
 
-.detailHeader {
+.modalHeader {
   text-align: center;
 }

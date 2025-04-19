@@ -1,7 +1,9 @@
+export type TIngredientType = 'bun' | 'sauce' | 'main' | 'top' | 'bottom';
+
 export type TIngredient = {
   _id: string;
   name: string;
-  type: string;
+  type: TIngredientType;
   proteins: number;
   fat: number;
   carbohydrates: number;
@@ -16,14 +18,22 @@ export type TConstructorIngredient = TIngredient & {
   id: string;
 };
 
+export type TOrderStatus = 'created' | 'pending' | 'done' | 'ready';
+
 export type TOrder = {
   _id: string;
-  status: string;
+  status: TOrderStatus;
   name: string;
   createdAt: string;
   updatedAt: string;
   number: number;
   ingredients: string[];
+};
+
+export type TOrderInfoExtended = TOrder & {
+  ingredientsInfo: Record<string, TIngredient & { count: number }>;
+  total: number;
+  date: Date;
 };
 
 export type TOrdersData = {
