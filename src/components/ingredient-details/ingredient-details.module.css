@@ -1,0 +1,14 @@
+.wrapper {
+    padding-top: 120px;
+    text-align: center;
+  }
+  
+  .title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 40px;
+    color: var(--text-primary-color);
+    margin-bottom: 20px;
+  }
+  
