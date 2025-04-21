@@ -2,8 +2,24 @@
   margin: 0 auto;
   width: 640px;
 }
+
+.page {
+  padding-top: 120px;
+}
+
 .number {
   text-align: center;
+}
+
+.number_center {
+  display: block;
+  text-align: center;
+  font-family: 'Iceland', monospace;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-primary-color);
+  padding-bottom: 0;
 }
 
 .status {
@@ -71,6 +87,17 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 .total {
   margin-left: auto;
+}
+
+.title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 40px;
+  color: var(--text-primary-color);
+  text-align: center;
+  margin-bottom: 20px;
 }

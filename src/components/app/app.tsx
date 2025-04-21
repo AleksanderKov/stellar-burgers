@@ -18,7 +18,6 @@ import {
   AppHeader,
   IngredientDetails,
   Modal,
-  OrderInfo,
   ProtectedRoute
 } from '@components';
 
@@ -28,6 +27,8 @@ import { verifyUserAuth } from '../../services/slices/authSlice';
 import '../../index.css';
 import styles from './app.module.css';
 
+import { OrderInfo } from '../order-info/order-info';
+import { OrderInfoModalWrapper } from '../ui/order-info/order-info-modal-wrapper';
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -115,11 +116,7 @@ const App = () => {
         <Routes>
           <Route
             path='/feed/:number'
-            element={
-              <Modal title='Детали заказа' onClose={closeModal}>
-                <OrderInfo />
-              </Modal>
-            }
+            element={<OrderInfoModalWrapper onClose={closeModal} />}
           />
           <Route
             path='/ingredients/:id'
@@ -133,9 +130,7 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <Modal title='Детали заказа' onClose={closeModal}>
-                  <OrderInfo />
-                </Modal>
+                <OrderInfoModalWrapper onClose={closeModal} />
               </ProtectedRoute>
             }
           />

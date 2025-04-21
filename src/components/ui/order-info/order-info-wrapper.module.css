@@ -1,0 +1,12 @@
+.wrapper {
+    padding-top: 120px;
+    margin: 0 auto;
+    max-width: 640px;
+  }
+  
+  .number {
+    text-align: center;
+    display: block;
+    color: var(--text-primary-color);
+  }
+  

@@ -29,37 +29,49 @@ const initialState: IUserState = {
 export const signUpUser = createAsyncThunk(
   `${AUTH_SLICE_NAME}/signUpUser`,
   async (data: TRegisterData, { rejectWithValue }) => {
-    const dataUser = await registerUserApi(data);
-    if (!dataUser.success) {
-      return rejectWithValue(data);
+    try {
+      const dataUser = await registerUserApi(data);
+      if (!dataUser.success) {
+        return rejectWithValue(data);
+      }
+      setCookie('accessToken', dataUser.accessToken);
+      localStorage.setItem('refreshToken', dataUser.refreshToken);
+      return dataUser.user;
+    } catch (err) {
+      return rejectWithValue(err);
     }
-    setCookie('accessToken', dataUser.accessToken);
-    localStorage.setItem('refreshToken', dataUser.refreshToken);
-    return dataUser.user;
   }
 );
 
 export const signInUser = createAsyncThunk(
   `${AUTH_SLICE_NAME}/signInUser`,
   async (data: TLoginData, { rejectWithValue }) => {
-    const dataUser = await loginUserApi(data);
-    if (!dataUser.success) {
-      return rejectWithValue(data);
+    try {
+      const dataUser = await loginUserApi(data);
+      if (!dataUser.success) {
+        return rejectWithValue(data);
+      }
+      setCookie('accessToken', dataUser.accessToken);
+      localStorage.setItem('refreshToken', dataUser.refreshToken);
+      return dataUser.user;
+    } catch (err) {
+      return rejectWithValue(err);
     }
-    setCookie('accessToken', dataUser.accessToken);
-    localStorage.setItem('refreshToken', dataUser.refreshToken);
-    return dataUser.user;
   }
 );
 
 export const requestPasswordReset = createAsyncThunk(
   `${AUTH_SLICE_NAME}/requestPasswordReset`,
   async (data: { email: string }, { rejectWithValue }) => {
-    const dataUser = await forgotPasswordApi(data);
-    if (!dataUser.success) {
-      return rejectWithValue(data);
+    try {
+      const dataUser = await forgotPasswordApi(data);
+      if (!dataUser.success) {
+        return rejectWithValue(data);
+      }
+      return dataUser.success;
+    } catch (err) {
+      return rejectWithValue(err);
     }
-    return dataUser.success;
   }
 );
 
@@ -70,7 +82,16 @@ export const loadUserData = createAsyncThunk(
 
 export const signOutUser = createAsyncThunk(
   `${AUTH_SLICE_NAME}/signOutUser`,
-  async () => logoutApi()
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await logoutApi();
+      localStorage.clear(); // ✅ переместили сюда
+      deleteCookie('accessToken');
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
 );
 
 export const saveUserProfile = createAsyncThunk(
@@ -102,7 +123,6 @@ const userSlice = createSlice({
   selectors: {
     getUserData: (state) => state.data,
     getAuthStatus: (state) => state.isAuthChecked,
-    // Алиасы для совместимости
     getUser: (state) => state.data,
     getIsAuthChecked: (state) => state.isAuthChecked
   },
@@ -150,8 +170,6 @@ const userSlice = createSlice({
       .addCase(signOutUser.fulfilled, (state) => {
         state.error = null;
         state.data = null;
-        localStorage.clear();
-        deleteCookie('accessToken');
       })
       .addCase(signOutUser.rejected, (state) => {
         state.error = 'Не удалось выйти из аккаунта';
@@ -175,7 +193,6 @@ export const { getUserData, getAuthStatus, getUser, getIsAuthChecked } =
   userSlice.selectors;
 export const { authChecked } = userSlice.actions;
 
-// Алиасы для совместимости с компонентами
 export const fetchRegisterUser = signUpUser;
 export const fetchLoginUser = signInUser;
 export const fetchGetUser = loadUserData;

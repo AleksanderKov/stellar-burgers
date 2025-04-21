@@ -42,3 +42,16 @@
   flex-direction: column;
   align-items: center;
 }
+
+.titleWrap {
+  display: flex;
+  align-items: center;
+}
+
+.titleNumber {
+  font-size: 28px;
+  font-weight: 400;
+  font-family: 'Iceland', monospace;
+  line-height: 24px;
+  color: var(--text-primary-color);
+}
