@@ -5,10 +5,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import { TConstructorIngredient, TOrder } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 
-import {
-  selectConstructorState,
-  clearConstructor
-} from '../../services/slices/constructorSlice';
+import { selectConstructorState } from '../../services/slices/constructorSlice';
 
 import {
   clearOrderData,
@@ -43,12 +40,10 @@ export const BurgerConstructor: FC = () => {
     ];
 
     dispatch(fetchOrderBurgerApi(ingredientIds));
-    dispatch(clearConstructor());
   };
 
   const closeOrderModal = () => {
     dispatch(clearOrderData());
-    dispatch(clearConstructor());
   };
 
   const totalPrice = useMemo(() => {
